@@ -5,7 +5,7 @@ Library    Collections
 *** Test Cases ***
 Get user profile success
     Create Session    reqres    https://reqres.in
-    ${response}=    GET Request    reqres    /api/users/12
+    ${response}=    GET On Session    reqres    /api/users/12
     Should Be Equal As Integers    ${response.status_code}    200
     Log    ${response.json()}
     ${json_data}=    Convert To String    ${response.json()}
@@ -19,7 +19,6 @@ Get user profile success
 
 Get user profile but user not found
     Create Session    reqres    https://reqres.in
-    ${response}=    GET Request    reqres    /api/users/1234
-    Should Be Equal As Integers    ${response.status_code}    404
+    ${response}=    GET On Session    reqres    /api/users/1234    expected_status=404
     Log    ${response.json()}
     Should Be Empty    ${response.json()}
